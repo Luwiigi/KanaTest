@@ -1,11 +1,11 @@
-// Try to autoplay muted on page load
+// Tries to autoplay the title theme muted on page load
 window.addEventListener('DOMContentLoaded', function() {
     const audio = document.getElementById('bgMusic');
     audio.muted = true;
     playMusic('./media/title.mp3');
 });
 
-// Unmute and restart music on first user interaction
+// Unmutes and restart music on first user interaction
 window.addEventListener('click', function unmuteMusic() {
     const audio = document.getElementById('bgMusic');
     audio.muted = false;
@@ -14,7 +14,7 @@ window.addEventListener('click', function unmuteMusic() {
     window.removeEventListener('click', unmuteMusic);
 });
 
-// Show overlay and hide all other content until user clicks
+// Shows overlay and hides all other content until user clicks
 window.addEventListener('DOMContentLoaded', function() {
     document.body.querySelectorAll('div, header, audio').forEach(el => {
         if (el.id !== 'clickAnywhereOverlay') el.style.display = 'none';
@@ -40,12 +40,12 @@ document.getElementById('startButton').addEventListener('click', function() {
     playMusic('./media/game.mp3');
     showNextKana();
 });
-
+// Kana structure
 function Kana(japanese, romaji) {
     this.japanese = japanese;
     this.romaji = romaji;
 }
-
+// Instantiates every kana with its romaji equivalent
 const hiraganaList = [
     new Kana("あ", "a"),
     new Kana("い", "i"),
@@ -217,6 +217,8 @@ function showNextKana() {
     }
 }
 
+
+// Transitions to final score/rank screen
 function endGame() {
 
     const textInputDiv = document.getElementById('textInput');
@@ -253,7 +255,7 @@ function endGame() {
         playMusic('./media/perfect_score.mp3');
     }
 
-
+// Final screen constructor
     const kanaPromptDiv = document.getElementById('kanaPrompt');
     kanaPromptDiv.innerHTML = `<div style="text-align:center, font-size: clamp(32px, 10vw, 77px);">
         <h2>Final score: ${score}/142</h2>
@@ -261,6 +263,7 @@ function endGame() {
     </div>`;
 }
 
+// Answer field handler
 document.getElementById('kanaInput').addEventListener('keydown', function(event) {
     if (event.key === "Enter") {
         const userInput = this.value.trim().toLowerCase();
@@ -277,6 +280,7 @@ document.getElementById('kanaInput').addEventListener('keydown', function(event)
     }
 });
 
+// Music playback
 function playMusic(src) {
     const audio = document.getElementById('bgMusic');
     audio.loop = src.includes('game.mp3'); // Only loops the main game's music
